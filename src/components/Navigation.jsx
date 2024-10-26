@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link
-
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Button from './design/Button';
 import { FaRegEdit } from "react-icons/fa";
 import { HiDocumentSearch } from "react-icons/hi";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"; // Importing hamburger menu icons
-import SearchDialog from './SearchDialog'; // Importing the SearchDialog component
-import Notifications from './Notifications'; // Import Notifications component
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import SearchDialog from './SearchDialog';
+import Notifications from './Notifications';
 
 function NavigationBar() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false); // State to control the dialog visibility
-  const [isNotificationsVisible, setIsNotificationsVisible] = useState(false); // State for notifications
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu toggle
+  const location = useLocation();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Hardcoded notifications for demonstration
   const notifications = [
     'Your post has been approved.',
     'New comments on your post.',
@@ -21,25 +21,8 @@ function NavigationBar() {
     'Someone mentioned you in a comment.',
   ];
 
-  const unreadNotificationsCount = notifications.length; // You can calculate unread notifications here
+  const unreadNotificationsCount = notifications.length;
 
-  // Function to toggle the search dialog
-  const toggleSearchDialog = () => {
-    setIsSearchOpen(!isSearchOpen);
-  };
-
-  // Function to toggle notifications
-  const toggleNotifications = (e) => {
-    e.preventDefault(); // Prevent default behavior of the anchor tag
-    setIsNotificationsVisible(!isNotificationsVisible);
-  };
-
-  // Function to toggle mobile menu
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  // Hardcoded search history
   const searchHistory = [
     'News about the community',
     'Upcoming events',
@@ -48,16 +31,41 @@ function NavigationBar() {
     'Volunteer opportunities',
   ];
 
+  const toggleSearchDialog = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
+
+  const toggleNotifications = (e) => {
+    e.preventDefault();
+    setIsNotificationsVisible(!isNotificationsVisible);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <nav className="fixed top-0 w-full z-50 shadow-sm bg-white p-4">
+    <nav
+      className={`sticky top-0 w-full z-50 p-4 transition-colors duration-300
+        ${isScrolled ? 'bg-white bg-opacity-100 pb-4' : 'bg-white'}`}
+    >
       <div className="flex justify-between items-center">
-        {/* Logo and menu for mobile */}
         <div className="flex items-center">
           <a href="/" className="text-3xl text-red-800 font-bold">Bulletin</a>
         </div>
-        <span className='text-2xl font-extralight text-gray-500 hidden lg:block ms-4'>|</span>
+        <span className="text-2xl font-extralight text-gray-500 hidden lg:block ms-4">|</span>
 
-        {/* Hamburger icon for mobile */}
         <div className="lg:hidden flex items-center">
           <button onClick={toggleMobileMenu}>
             {isMobileMenuOpen ? (
@@ -68,7 +76,6 @@ function NavigationBar() {
           </button>
         </div>
 
-        {/* Full menu for larger screens */}
         <ul className={`lg:flex lg:items-center lg:space-x-4 ${isMobileMenuOpen ? 'block' : 'hidden'} w-full lg:w-auto lg:flex`}>
           <li><Link to="/news" className="px-4 py-2 rounded-md">News</Link></li>
           <li>
@@ -84,7 +91,11 @@ function NavigationBar() {
           <li><Link to="/subscribe" className="px-4 py-2 rounded-md">Community</Link></li>
         </ul>
 
-        {/* Right-side items */}
+        {/* Divider for larger screens on the '/' route and only when not scrolled
+        {location.pathname === '/' && !isScrolled && (
+          <div className="hidden lg:block w-full h-28 rounded-t-xl mx-5 bg-black"></div>
+        )} */}
+
         <div className="hidden lg:flex items-center ml-auto space-x-4">
           <Link to="/write" className="flex items-center space-x-2 px-2 py-2 rounded-md">
             <FaRegEdit className="text-2xl" />
@@ -94,7 +105,6 @@ function NavigationBar() {
             <i className="fa fa-twitter"></i>
           </a>
 
-          {/* Notifications Button with Badge */}
           <Button className="relative" onClick={toggleNotifications}>
             Notifications
             {unreadNotificationsCount > 0 && (
@@ -106,10 +116,8 @@ function NavigationBar() {
         </div>
       </div>
 
-      {/* Notifications Panel */}
       {isNotificationsVisible && <Notifications notifications={notifications} />}
 
-      {/* Search Dialog Modal */}
       <SearchDialog
         isOpen={isSearchOpen}
         toggleSearchDialog={toggleSearchDialog}

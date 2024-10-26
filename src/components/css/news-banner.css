@@ -1,0 +1,27 @@
+/* NewsBanner.css */
+
+.news-slider {
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: slide 10s linear infinite; /* Continuous sliding */
+  }
+  
+  .news-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1f40af; /* Tailwind blue-700 */
+    padding: 0 2rem;
+    display: inline-block;
+  }
+  
+  /* Keyframes for continuous scrolling */
+  @keyframes slide {
+    0% {
+      transform: translateX(0); /* Start at the initial position */
+    }
+    100% {
+      transform: translateX(-100%); /* End when the entire slider content is off-screen */
+    }
+  }
+  

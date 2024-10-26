@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { AiOutlineClose } from "react-icons/ai"; // Importing the close icon
+import { AiOutlineClose } from "react-icons/ai";
 
 function SearchDialog({ isOpen, toggleSearchDialog, searchHistory }) {
-  const modalRef = useRef(null); // Ref for the search modal container
+  const modalRef = useRef(null);
 
-  // Hook to close the modal if you click outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -39,7 +38,6 @@ function SearchDialog({ isOpen, toggleSearchDialog, searchHistory }) {
             />
           </div>
 
-          {/* Hardcoded Search History */}
           <div className="mt-6">
             <h3 className="text-lg font-semibold mb-2">Search History</h3>
             <ul className="space-y-2">

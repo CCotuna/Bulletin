@@ -1,0 +1,84 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Remove extra margin */
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  font-family: 'Georgia', serif;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  width: 50rem; /* Card width */
+  height: 300px; /* Card height */
+  background-color: white;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform-style: preserve-3d;
+  padding: 10px 20px; /* Adjust top and bottom padding */
+  position: relative;
+  z-index: 1;
+  transform: perspective(200px) rotateX(35deg) translateZ(25px) translateY(5px);
+  overflow: hidden;
+  transition: transform 0.2s ease-out;
+  margin-bottom: 0; /* Remove bottom margin */
+}
+
+.card-content {
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.card-content h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px; /* Adjust margin */
+  text-transform: uppercase;
+  color: #e3e0e0;
+}
+
+.advertisement {
+  background-color: #f8f8f8;
+  padding: 10px 15px; /* Adjust padding */
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%; /* Ensure it takes full card width */
+}
+
+.advertisement h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #136377;
+}
+
+.advertisement p {
+  font-size: 16px;
+  color: #555;
+}
+
+.card:hover {
+  background: #740909;
+  color: #136377;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Hide the card on mobile devices */
+@media (max-width: 768px) {
+  .card-container {
+    display: none;
+  }
+}
