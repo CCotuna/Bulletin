@@ -10,7 +10,7 @@ const LatestNews = () => {
     const fetchLatestArticle = async () => {
       try {
         const response = await axios.get(
-          `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${process.env.REACT_APP_NEWS_API_KEY}` 
+          `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${process.env.VITE_NEWS_API_KEY}` 
         );
         const firstArticle = response.data.articles[0];
         if (firstArticle && firstArticle.urlToImage) {

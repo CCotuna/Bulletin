@@ -10,7 +10,7 @@ const NewsPage = () => {
     const fetchNews = async () => {
       try {
         const response = await axios.get(
-          `https://newsapi.org/v2/everything?q=tesla&from=2024-09-26&sortBy=publishedAt&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`
+          `https://newsapi.org/v2/everything?q=tesla&from=2024-09-26&sortBy=publishedAt&apiKey=${process.env.VITE_NEWS_API_KEY}`
         );
         setArticles(response.data.articles);
       } catch (err) {

@@ -7,7 +7,7 @@ function Hero() {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const response = await axios.get(`https://newsapi.org/v2/everything?q=apple&from=2024-10-25&to=2024-10-25&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`);
+                const response = await axios.get(`https://newsapi.org/v2/everything?q=apple&from=2024-10-25&to=2024-10-25&sortBy=popularity&apiKey=${process.env.VITE_NEWS_API_KEY}`);
                 
                 const filteredArticles = response.data.articles.filter(article => article.urlToImage);
                 

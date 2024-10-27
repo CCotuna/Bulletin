@@ -11,7 +11,7 @@ const Gallery = () => {
     const fetchArticles = async () => {
       try {
         const response = await axios.get(
-          `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${process.env.REACT_APP_NEWS_API_KEY}` 
+          `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${process.env.VITE_NEWS_API_KEY}` 
         );
         
         const filteredArticles = response.data.articles.filter(article => article.urlToImage);
